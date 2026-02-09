@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiragana line Ya - Matching Game</title>
+    <title>Hiragana - Katakana line Ya</title>
     <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -108,21 +108,22 @@
             transform: translateX(100%);
         }
 
-        .card.romaji {
-            background-color: #d6ebf5;
-            color: #000;
-            font-family: Arial, sans-serif;
-            font-weight: normal;
-            font-size: clamp(60px, 10vw, 160px);
-            border: clamp(3px, 0.5vw, 6px) solid white;
-        }
-
-        .card.hiragana {
+        .card.katakana {
             background-color: white;
             border: clamp(3px, 0.5vw, 6px) solid #84c1e4;
             font-family: 'Klee One', cursive;
             font-weight: 600;
             font-size: clamp(60px, 10vw, 160px);
+        }
+
+        .card.hiragana {
+            background-color: #d6ebf5;
+            border: clamp(3px, 0.5vw, 6px) solid white;
+            font-family: 'Klee One', cursive;
+            font-weight: 600;
+            font-size: clamp(60px, 10vw, 160px);
+            -webkit-text-stroke: 4px #000;
+            paint-order: stroke fill;
         }
 
         .card.selected {
@@ -216,7 +217,7 @@
 <body>
     <div class="game-container" id="gameContainer">
         <div class="header">
-            <h1 class="title">Katakana line <span>Ya</span></h1>
+            <h1 class="title">Hiragana - Katakana line <span>Ya</span></h1>
             <div style="display: flex; align-items: center;">
                 <div class="timer" id="timer">00:00</div>
                 <button class="restart-button" id="restartBtn" onclick="restartGame()">↻</button>
@@ -228,12 +229,12 @@
 
     <script>
         const cardsTemplate = [
-            { type: 'romaji', value: 'yo', pair: 'ヨ' },
-            { type: 'romaji', value: 'yu', pair: 'ユ' },
-            { type: 'romaji', value: 'ya', pair: 'ヤ' },
-            { type: 'hiragana', value: 'ヨ', pair: 'yo', color: '#a67c52' },
-            { type: 'hiragana', value: 'ヤ', pair: 'ya', color: '#ff8800' },
-            { type: 'hiragana', value: 'ユ', pair: 'yu', color: '#6bba5a' }
+            { type: 'hiragana', value: 'よ', pair: 'ヨ', color: '#000' },
+            { type: 'hiragana', value: 'ゆ', pair: 'ユ', color: '#000' },
+            { type: 'hiragana', value: 'や', pair: 'ヤ', color: '#000' },
+            { type: 'katakana', value: 'ヨ', pair: 'よ', color: '#a67c52' },
+            { type: 'katakana', value: 'ヤ', pair: 'や', color: '#ff8800' },
+            { type: 'katakana', value: 'ユ', pair: 'ゆ', color: '#6bba5a' }
         ];
 
         let selectedCards = [];
@@ -347,6 +348,10 @@
                     cardElement.dataset.index = cardIndex;
                     
                     if (card.color && card.type === 'hiragana') {
+                        cardElement.style.color = card.color;
+                    }
+                    
+                    if (card.color && card.type === 'katakana') {
                         cardElement.style.color = card.color;
                     }
                     
